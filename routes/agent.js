@@ -1,12 +1,4 @@
-var express = require('express');
-var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('agent activated');
-});
-
-module.exports = router;
 /**
  * TODO(developer): UPDATE these variables before running the sample.
  */
@@ -63,36 +55,30 @@ async function detectIntent(
   return responses[0];
 }
 
-async function executeQueries(projectId, sessionId, queries, languageCode) {
+async function executeQueries(projectId, sessionId, query, languageCode) {
   // Keeping the context across queries let's us simulate an ongoing conversation with the bot
   let context;
   let intentResponse;
-  for (const query of queries) {
     try {
-      console.log(`Sending Query: ${query}`);
-      intentResponse = await detectIntent(
+        console.log(`Sending Query: ${query}`);
+        intentResponse = await detectIntent(
         projectId,
         sessionId,
         query,
         context,
         languageCode
-      );
-      console.log('Detected intent');
-      console.log(
+        );
+        console.log(
         `Fulfillment Text: ${intentResponse.queryResult.fulfillmentText}`
-      );
-      // Use the context from this response for next queries
-      context = intentResponse.queryResult.outputContexts;
+        );
+        // Use the context from this response for next queries
+        context = intentResponse.queryResult.outputContexts;
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  }
+  return intentResponse.queryResult.fulfillmentText;
 }
-const projectId = 'coffee-shop-qvsk';
-const sessionId = '12345';
-const queries = [
-  'I want to buy a drink',
-  'Iced coffee with whipped cream, delivery'
-]
-const languageCode = 'en';
-executeQueries(projectId, sessionId, queries, languageCode);
+
+module.exports = {
+    executeQueries: executeQueries,
+};

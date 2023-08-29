@@ -8,7 +8,8 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-
+// get agent function
+const { executeQueries } = require('./agent');
 
 const TelegramBot = require('node-telegram-bot-api');
 const token = '6193639537:AAG7_wGoWj8Q8lXA98l6qoucYw7wKbpA_uo';
@@ -25,12 +26,20 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 });
 
 bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
   var input = msg.text;
-  if (msg.text=='George') bot.sendMessage(chatId, 'Boi gay af frfr');
-  if (msg.text=='Yi Liang') bot.sendMessage(chatId, 'NO SEX NO SEX');
-  if (msg.text=='Samuel') bot.sendMessage(chatId, 'WENDeeznuts on ur face');
-  if (msg.text=='Jeremiah') bot.sendMessage(chatId, 'whine more please');
-  if (msg.text=='Joshua') bot.sendMessage(chatId, 'lil bro i didnt say type my name');
-
+  const projectId = 'coffee-shop-qvsk';
+  const sessionId = msg.chat.id;
+  const query = input;
+  const languageCode = 'en';
+  
+  (async () => {
+    try {
+      const fulfillmentText = await executeQueries(projectId, sessionId, query, languageCode);
+      bot.sendMessage(sessionId, fulfillmentText);
+      // Output: Array of fulfillment texts
+      // You can further process or use the fulfillment texts as needed
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  })();
 });
