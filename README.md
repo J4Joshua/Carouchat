@@ -15,7 +15,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/J4Joshua/Carouchat">
-    <img src="public/images/logo.png" alt="Logo" width="100" height="80">
+    <img src="public/images/logo.png" alt="Logo" width="160" height="80">
   </a>
 
 <h3 align="center">Carouchat</h3>
@@ -60,7 +60,7 @@
 ## About The Project
 <div align="center">
   <a href="https://github.com/J4Joshua/Carouchat">
-    <img src="public/images/CarouchatExample.jpeg" alt="eg" width="600" height="600">
+    <img src="public/images/CarouchatExample.jpeg" alt="eg" width="450" height="450">
   </a>
 
 Built with Node.js. The telegram bot receives customers messages and sends them to the GoogleDialogFlow console through the backend. The agent then processes the messages with its already configured intents and generates replies and sends them back to the telegram bot.
